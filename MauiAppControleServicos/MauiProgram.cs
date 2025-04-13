@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using MauiAppControleServicos; // ← Adicione esta diretiva using
 
 namespace MauiAppControleServicos
 {
@@ -8,7 +9,7 @@ namespace MauiAppControleServicos
         {
             var builder = MauiApp.CreateBuilder();
             builder
-                .UseMauiApp<App>()
+                .UseMauiApp<App>() // ← Agora vai encontrar a classe App
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -16,7 +17,7 @@ namespace MauiAppControleServicos
                 });
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

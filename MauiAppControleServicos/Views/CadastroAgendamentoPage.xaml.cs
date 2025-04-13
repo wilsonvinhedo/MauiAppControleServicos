@@ -1,9 +1,22 @@
-namespace MauiAppControleServicos.Views;
+﻿using ControleServicosApp.Models;
+using ControleServicosApp.ViewModels;
 
-public partial class CadastroAgendamentoPage : ContentPage
+namespace ControleServicosApp.Views
 {
-	public CadastroAgendamentoPage()
-	{
-		InitializeComponent();
-	}
+    public partial class CadastroAgendamentoPage : ContentPage
+    {
+        //  Construtor padrão (sem parâmetros)
+        public CadastroAgendamentoPage()
+        {
+            InitializeComponent();
+            BindingContext = new CadastroAgendamentoViewModel();
+        }
+
+        //  Construtor com parâmetro (para edição)
+        public CadastroAgendamentoPage(Agendamento agendamento)
+        {
+            InitializeComponent();
+            BindingContext = new CadastroAgendamentoViewModel(agendamento);
+        }
+    }
 }

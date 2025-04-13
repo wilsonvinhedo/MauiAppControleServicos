@@ -1,7 +1,7 @@
 ﻿using SQLite;
 using System;
 
-namespace ControleServicos.Models
+namespace ControleServicosApp.Models
 {
     public class Agendamento
     {

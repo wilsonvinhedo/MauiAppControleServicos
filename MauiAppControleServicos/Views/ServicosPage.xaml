@@ -1,24 +1,29 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:ControleServicosApp.ViewModels"
+             xmlns:viewmodels="clr-namespace:ControleServicosApp.ViewModels"
+             xmlns:models="clr-namespace:ControleServicosApp.Models"
              x:Class="ControleServicosApp.Views.ServicosPage"
+             x:DataType="viewmodels:ServicosViewModel"
+             x:Name="ServicosPage"
              Title="Serviços">
-    <ContentPage.BindingContext>
-        <vm:ServicosViewModel />
-    </ContentPage.BindingContext>
 
     <StackLayout Padding="10">
-        <Button Text="Adicionar Serviço" Command="{Binding AdicionarServicoCommand}" />
+        <Button Text="Adicionar Serviço" 
+                Command="{Binding AdicionarServicoCommand}" />
 
         <CollectionView ItemsSource="{Binding Servicos}">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="models:Servico">
                     <StackLayout Padding="10">
                         <Label Text="{Binding Nome}" FontSize="20" />
-                        <Label Text="{Binding Preco, StringFormat='Preço: {0:C}'}" FontSize="14" />
+                        <Label Text="{Binding Preco, StringFormat='Preço: R$ {0:F2}'}" FontSize="14" />
                         <Label Text="{Binding Descricao}" FontSize="14" />
-                        <Button Text="Editar" Command="{Binding Source={x:Reference Name=ServicosPage}, Path=BindingContext.EditarServicoCommand}" CommandParameter="{Binding}" />
-                        <Button Text="Excluir" Command="{Binding Source={x:Reference Name=ServicosPage}, Path=BindingContext.ExcluirServicoCommand}" CommandParameter="{Binding}" />
+                        <Button Text="Editar" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditarServicoCommand}" 
+                                CommandParameter="{Binding}" />
+                        <Button Text="Excluir" 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.ExcluirServicoCommand}" 
+                                CommandParameter="{Binding}" />
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

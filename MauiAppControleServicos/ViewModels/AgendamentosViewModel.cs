@@ -4,7 +4,8 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
-using ControleServicos.Models;
+using ControleServicosApp.Models;
+using ControleServicosApp.Views;
 
 namespace ControleServicosApp.ViewModels
 {

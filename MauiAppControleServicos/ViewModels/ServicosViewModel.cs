@@ -1,53 +1,46 @@
 ﻿using ControleServicosApp.Models;
-using ControleServicosApp.Database;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
 
 namespace ControleServicosApp.ViewModels
 {
-    public class ServicosViewModel : BindableObject
+    public class CadastroServicoViewModel : BindableObject
     {
-        public ObservableCollection<Servico> Servicos { get; set; }
-        public ICommand AdicionarServicoCommand { get; }
-        public ICommand EditarServicoCommand { get; }
-        public ICommand ExcluirServicoCommand { get; }
+        public Servico Servico { get; set; }
+        public ICommand SalvarServicoCommand { get; }
 
-        public ServicosViewModel()
+        public CadastroServicoViewModel()
         {
-            Servicos = new ObservableCollection<Servico>();
-            AdicionarServicoCommand = new Command(async () => await AdicionarServico());
-            EditarServicoCommand = new Command<Servico>(async (servico) => await EditarServico(servico));
-            ExcluirServicoCommand = new Command<Servico>(async (servico) => await ExcluirServico(servico));
-
-            _ = CarregarServicos();
+            Servico = new Servico();
+            SalvarServicoCommand = new Command(async () => await SalvarServico());
         }
 
-        private async Task CarregarServicos()
+        public CadastroServicoViewModel(Servico servico)
         {
-            var lista = await App.Database.ListarTodosAsync<Servico>();
-            Servicos.Clear();
-            foreach (var servico in lista)
-                Servicos.Add(servico);
+            Servico = servico;
+            SalvarServicoCommand = new Command(async () => await SalvarServico());
         }
 
-        private async Task AdicionarServico()
+        private async Task SalvarServico()
         {
-            await Application.Current.MainPage.Navigation.PushAsync(new CadastroServicoPage());
-        }
-
-        private async Task EditarServico(Servico servico)
-        {
-            await Application.Current.MainPage.Navigation.PushAsync(new CadastroServicoPage(servico));
-        }
-
-        private async Task ExcluirServico(Servico servico)
-        {
-            if (servico != null)
+            if (string.IsNullOrWhiteSpace(Servico.Nome))
             {
-                await App.Database.DeletarAsync(servico);
-                Servicos.Remove(servico);
+                await Application.Current.MainPage.DisplayAlert("Erro", "Nome do serviço é obrigatório", "OK");
+                return;
+            }
+
+            try
+            {
+                if (Servico.Id == 0)
+                    await App.Database.InserirAsync(Servico);
+                else
+                    await App.Database.AtualizarAsync(Servico);
+
+                await Application.Current.MainPage.Navigation.PopAsync();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Erro", ex.Message, "OK");
             }
         }
     }

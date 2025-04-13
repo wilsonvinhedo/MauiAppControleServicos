@@ -1,9 +1,11 @@
-namespace MauiAppControleServicos.Views;
-
-public partial class ServicosPage : ContentPage
+namespace ControleServicosApp.Views
 {
-	public ServicosPage()
-	{
-		InitializeComponent();
-	}
+    public partial class ServicosPage : ContentPage
+    {
+        public ServicosPage()
+        {
+            InitializeComponent();
+            BindingContext = new ViewModels.ServicosViewModel();
+        }
+    }
 }

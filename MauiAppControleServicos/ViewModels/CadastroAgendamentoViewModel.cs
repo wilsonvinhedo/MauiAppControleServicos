@@ -10,31 +10,28 @@ namespace ControleServicosApp.ViewModels
     public class CadastroAgendamentoViewModel : BindableObject
     {
         public Agendamento Agendamento { get; set; }
-        public ObservableCollection<Cliente> Clientes { get; set; }
-        public ObservableCollection<Servico> Servicos { get; set; }
+
         public ICommand SalvarAgendamentoCommand { get; }
 
+        // Construtor padrão
         public CadastroAgendamentoViewModel()
         {
             Agendamento = new Agendamento();
-            Clientes = new ObservableCollection<Cliente>();
-            Servicos = new ObservableCollection<Servico>();
-
             SalvarAgendamentoCommand = new Command(async () => await SalvarAgendamento());
+            _ = CarregarDados();
+        }
 
+        // Construtor para editar um agendamento existente
+        public CadastroAgendamentoViewModel(Agendamento agendamento)
+        {
+            Agendamento = agendamento;
+            SalvarAgendamentoCommand = new Command(async () => await SalvarAgendamento());
             _ = CarregarDados();
         }
 
         private async Task CarregarDados()
         {
-            Clientes.Clear();
-            Servicos.Clear();
-
-            var listaClientes = await App.Database.ListarTodosAsync<Cliente>();
-            var listaServicos = await App.Database.ListarTodosAsync<Servico>();
-
-            foreach (var item in listaClientes) Clientes.Add(item);
-            foreach (var item in listaServicos) Servicos.Add(item);
+            // carregar lista de clientes e serviços aqui se for necessário
         }
 
         private async Task SalvarAgendamento()

@@ -13,7 +13,7 @@ namespace ControleServicosApp.ViewModels
 
         public CadastroServicoViewModel()
         {
-            Servico = new Servico();
+            Servico = servico ?? new Servico(); // Se 'servico' for null, cria um novo
             SalvarServicoCommand = new Command(async () => await SalvarServico());
         }
 

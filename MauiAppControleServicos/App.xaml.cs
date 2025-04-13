@@ -1,15 +1,40 @@
 ﻿using ControleServicosApp.Database;
+using Microsoft.Maui.Controls;
 using System.Threading.Tasks;
 
-public partial class App : Application
+namespace ControleServicosApp
 {
-    public static DatabaseHelper Database { get; private set; }
-
-    public App()
+    public partial class App : Application
     {
-        InitializeComponent();
-        Database = new DatabaseHelper();
-        Task.Run(async () => await Database.InitializeAsync());
-        MainPage = new MainPage();
+        public static DatabaseHelper Database { get; private set; }
+
+        public App()
+        {
+            InitializeDatabase();
+            MainPage = new AppShell();
+        }
+
+        private async void InitializeDatabase()
+        {
+            try
+            {
+                Database = new DatabaseHelper();
+                await Database.InitializeAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Falha na inicialização do BD: {ex.Message}");
+            }
+        }
+
+        protected override async void OnStart()
+        {
+            base.OnStart();
+
+            if (Database == null)
+            {
+                InitializeDatabase();
+            }
+        }
     }
 }
