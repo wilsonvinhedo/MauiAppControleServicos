@@ -1,0 +1,25 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ControleServicosApp.ViewModels"
+             x:Class="ControleServicosApp.Views.CadastroFinanceiroPage"
+             Title="Novo Registro Financeiro">
+    <ContentPage.BindingContext>
+        <vm:CadastroFinanceiroViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10">
+        <Entry Placeholder="Descrição" Text="{Binding RegistroFinanceiro.Descricao}" />
+        <Entry Placeholder="Valor" Text="{Binding RegistroFinanceiro.Valor}" Keyboard="Numeric"/>
+
+        <Picker Title="Tipo" SelectedItem="{Binding RegistroFinanceiro.Tipo}">
+            <Picker.Items>
+                <x:String>Entrada</x:String>
+                <x:String>Saída</x:String>
+            </Picker.Items>
+        </Picker>
+
+        <DatePicker Date="{Binding RegistroFinanceiro.Data}" />
+
+        <Button Text="Salvar" Command="{Binding SalvarRegistroCommand}" />
+    </StackLayout>
+</ContentPage>
