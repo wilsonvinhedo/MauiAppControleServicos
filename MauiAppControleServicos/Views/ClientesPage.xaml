@@ -1,0 +1,27 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ControleServicosApp.ViewModels"
+             x:Class="ControleServicosApp.Views.ClientesPage"
+             Title="Clientes">
+    <ContentPage.BindingContext>
+        <vm:ClientesViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10">
+        <Button Text="Adicionar Cliente" Command="{Binding AdicionarClienteCommand}" />
+
+        <CollectionView ItemsSource="{Binding Clientes}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding Nome}" FontSize="20" />
+                        <Label Text="{Binding Telefone}" FontSize="14" />
+                        <Label Text="{Binding Email}" FontSize="14" />
+                        <Button Text="Editar" Command="{Binding Source={x:Reference Name=ClientesPage}, Path=BindingContext.EditarClienteCommand}" CommandParameter="{Binding}" />
+                        <Button Text="Excluir" Command="{Binding Source={x:Reference Name=ClientesPage}, Path=BindingContext.ExcluirClienteCommand}" CommandParameter="{Binding}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

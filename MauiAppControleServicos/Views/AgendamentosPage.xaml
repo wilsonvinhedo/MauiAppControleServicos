@@ -1,0 +1,27 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ControleServicosApp.ViewModels"
+             x:Class="ControleServicosapp.Views.AgendamentosPage"
+             Title="Agendamentos">
+    <ContentPage.BindingContext>
+        <vm:AgendamentosViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10">
+        <Button Text="Novo Agendamento" Command="{Binding AdicionarAgendamentoCommand}" />
+
+        <CollectionView ItemsSource="{Binding Agendamentos}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding DataHora, StringFormat='Data: {0:dd/MM/yyyy HH:mm}'}" FontSize="20" />
+                        <Label Text="{Binding ValorTotal, StringFormat='Valor: {0:C}'}" FontSize="14" />
+                        <Label Text="{Binding Observacoes}" FontSize="14" />
+                        <Button Text="Editar" Command="{Binding Source={x:Reference Name=AgendamentosPage}, Path=BindingContext.EditarAgendamentoCommand}" CommandParameter="{Binding}" />
+                        <Button Text="Excluir" Command="{Binding Source={x:Reference Name=AgendamentosPage}, Path=BindingContext.ExcluirAgendamentoCommand}" CommandParameter="{Binding}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>

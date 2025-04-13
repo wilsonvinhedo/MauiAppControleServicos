@@ -1,0 +1,16 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ControleServicosApp.ViewModels"
+             x:Class="ControleServicosApp.Views.CadastroServicoPage"
+             Title="Cadastro de Serviço">
+    <ContentPage.BindingContext>
+        <vm:CadastroServicoViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10">
+        <Entry Placeholder="Nome do Serviço" Text="{Binding Servico.Nome}" />
+        <Entry Placeholder="Preço" Text="{Binding Servico.Preco}" Keyboard="Numeric" />
+        <Editor Placeholder="Descrição" Text="{Binding Servico.Descricao}" HeightRequest="100"/>
+        <Button Text="Salvar" Command="{Binding SalvarServicoCommand}" />
+    </StackLayout>
+</ContentPage>
