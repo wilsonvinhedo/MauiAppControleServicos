@@ -1,0 +1,27 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ControleServicosApp.ViewModels"
+             x:Class="ControleServicosApp.Views.FinanceiroPage"
+             Title="Financeiro">
+    <ContentPage.BindingContext>
+        <vm:FinanceiroViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10">
+        <Label Text="Total: " FontSize="20" />
+        <Label Text="{Binding TotalFinanceiro, StringFormat='R$ {0:F2}'}" FontSize="24" FontAttributes="Bold" />
+
+        <CollectionView ItemsSource="{Binding RegistrosFinanceiros}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding Data, StringFormat='Data: {0:dd/MM/yyyy}'}" FontSize="16" />
+                        <Label Text="{Binding Descricao}" FontSize="14" />
+                        <Label Text="{Binding Valor, StringFormat='Valor: {0:C}'}" FontSize="14" />
+                        <Label Text="{Binding Tipo}" FontSize="14" TextColor="{Binding Tipo, Converter={StaticResource TipoColorConverter}}" />
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+</ContentPage>
