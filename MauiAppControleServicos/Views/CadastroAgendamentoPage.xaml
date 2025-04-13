@@ -1,0 +1,19 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ControleServicosApp.ViewModels"
+             x:Class="ControleServicosApp.Views.CadastroAgendamentoPage"
+             Title="Cadastro de Agendamento">
+    <ContentPage.BindingContext>
+        <vm:CadastroAgendamentoViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="10">
+        <Picker Title="Cliente" ItemsSource="{Binding Clientes}" SelectedItem="{Binding Agendamento.ClienteId}" ItemDisplayBinding="{Binding Nome}" />
+        <Picker Title="Serviço" ItemsSource="{Binding Servicos}" SelectedItem="{Binding Agendamento.ServicoId}" ItemDisplayBinding="{Binding Nome}" />
+        <DatePicker Date="{Binding Agendamento.DataHora}" />
+        <TimePicker Time="{Binding Agendamento.DataHora}" />
+        <Entry Placeholder="Valor Total" Text="{Binding Agendamento.ValorTotal}" Keyboard="Numeric" />
+        <Editor Placeholder="Observações" Text="{Binding Agendamento.Observacoes}" HeightRequest="100"/>
+        <Button Text="Salvar" Command="{Binding SalvarAgendamentoCommand}" />
+    </StackLayout>
+</ContentPage>
